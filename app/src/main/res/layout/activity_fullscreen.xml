@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffd5d3"
+    android:id="@+id/fl_root"
+    tools:context="site.fangte.app.jumpjumphelper.SplashActivity">
+    <ImageView
+        android:layout_gravity="center"
+        android:src="@drawable/flag"
+        android:layout_width="40dp"
+        android:layout_height="70dp" />
+    <ImageView
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="bottom"
+        android:src="@mipmap/man"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/fl_add"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        </FrameLayout>
+        <TextView
+            android:gravity="center"
+            android:textColor="#555"
+            android:padding="6dp"
+            android:text="欢迎使用 微信跳一跳助手"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="#555"
+            android:paddingBottom="10dp"
+            android:text="http://app.fangte.site"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</FrameLayout>
