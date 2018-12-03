@@ -39,7 +39,7 @@
             android:gravity="center"
             android:textColor="#555"
             android:paddingBottom="10dp"
-            android:text="http://app.fangte.site"
+            android:text="http://planet0104.github.io"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

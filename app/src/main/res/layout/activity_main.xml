@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ddf"
     tools:context="site.fangte.app.jumpjumphelper.MainActivity">
     <LinearLayout
         android:paddingTop="10dp"
@@ -42,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="http://app.fangte.site"
+            android:text="http://planet0104.github.io"
             />
     </LinearLayout>
 

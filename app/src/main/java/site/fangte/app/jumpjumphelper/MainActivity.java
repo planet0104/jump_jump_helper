@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.PointF;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -24,12 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.youmi.android.nm.sp.SpotManager;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+
+import cds.sdg.sdf.nm.sp.SpotManager;
 
 public class MainActivity extends Activity {
     static final String TAG = MainActivity.class.getSimpleName();
@@ -58,8 +60,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btn_open = (Button) findViewById(R.id.btn_open);
-        btn_help = (Button) findViewById(R.id.btn_help);
+        btn_open =  findViewById(R.id.btn_open);
+        btn_help =  findViewById(R.id.btn_help);
 
         setTitle(R.string.app_name_full);
 
@@ -95,7 +97,7 @@ public class MainActivity extends Activity {
         if(!Settings.canDrawOverlays(getApplicationContext())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("使用提示");
-            builder.setMessage("请检允许跳一跳助手“显示在其他应用的上层”");
+            builder.setMessage("请检允许跳一跳助手“显示在其他应用的上层/显示悬浮窗”");
             builder.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -127,20 +129,25 @@ public class MainActivity extends Activity {
                             | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                     PixelFormat.TRANSPARENT);
 
+            //6.0
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            }
+
             params.gravity = Gravity.RIGHT|Gravity.CENTER_VERTICAL;
             WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
             wm.addView(panel, params);
             show = true;
 
-            tv_tool = (TextView) panel.findViewById(R.id.tv_tool);
-            tv_close = (TextView) panel.findViewById(R.id.tv_close);
-            ll_panel_root = (FrameLayout) panel.findViewById(R.id.ll_panel_root);
-            tv_start_flag = (TextView) panel.findViewById(R.id.tv_start_flag);
-            tv_end_flag = (TextView) panel.findViewById(R.id.tv_end_flag);
-            ll_error = (LinearLayout) panel.findViewById(R.id.ll_error);
-            btn_close_err = (Button) panel.findViewById(R.id.btn_close_err);
-            btn_show_help = (Button) panel.findViewById(R.id.btn_show_help);
-            tv_share = (TextView)panel.findViewById(R.id.tv_share);
+            tv_tool =  panel.findViewById(R.id.tv_tool);
+            tv_close =  panel.findViewById(R.id.tv_close);
+            ll_panel_root =  panel.findViewById(R.id.ll_panel_root);
+            tv_start_flag =  panel.findViewById(R.id.tv_start_flag);
+            tv_end_flag =  panel.findViewById(R.id.tv_end_flag);
+            ll_error =  panel.findViewById(R.id.ll_error);
+            btn_close_err =  panel.findViewById(R.id.btn_close_err);
+            btn_show_help =  panel.findViewById(R.id.btn_show_help);
+            tv_share = panel.findViewById(R.id.tv_share);
 
             btn_close_err.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -216,7 +223,12 @@ public class MainActivity extends Activity {
                             Log.d(TAG, "开始跳:");
                             onGestureCompleted = false;
                             jumping = true;
-                            helperService.performTouch((int) (second*1000));
+
+                            int[] loc = new int[2];
+                            ll_panel_root.getLocationOnScreen(loc);
+                            System.out.println("屏幕位置:"+ Arrays.toString(loc));
+
+                            helperService.performTouch((int) (second*1000), loc[1]);
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -287,6 +299,9 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    if(tv_tool == null){
+                        tv_tool =  panel.findViewById(R.id.tv_tool);
+                    }
                     tv_tool.performLongClick();
                     startActivity(new Intent(MainActivity.this, HelpActivity.class));
                 }

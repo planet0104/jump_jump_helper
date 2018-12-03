@@ -7,12 +7,12 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import net.youmi.android.AdManager;
-import net.youmi.android.nm.cm.ErrorCode;
-import net.youmi.android.nm.sp.SplashViewSettings;
-import net.youmi.android.nm.sp.SpotListener;
-import net.youmi.android.nm.sp.SpotManager;
-import net.youmi.android.nm.sp.SpotRequestListener;
+import cds.sdg.sdf.AdManager;
+import cds.sdg.sdf.nm.cm.ErrorCode;
+import cds.sdg.sdf.nm.sp.SplashViewSettings;
+import cds.sdg.sdf.nm.sp.SpotListener;
+import cds.sdg.sdf.nm.sp.SpotManager;
+import cds.sdg.sdf.nm.sp.SpotRequestListener;
 
 public class SplashActivity extends Activity {
     FrameLayout fl_root;
@@ -92,7 +92,7 @@ public class SplashActivity extends Activity {
                         showShortToast("网络异常");
                         break;
                     case ErrorCode.NON_AD:
-                        showShortToast("暂无视频广告");
+//                        showShortToast("暂无视频广告");
                         break;
                     default:
                         showShortToast("请稍后再试");

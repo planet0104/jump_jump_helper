@@ -23,15 +23,15 @@ import static site.fangte.app.jumpjumphelper.MainActivity.onGestureCompleted;
 public class HelperService extends AccessibilityService {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void performTouch(int duration){
+    public void performTouch(int duration, int top){
         GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
         Path path = new Path();
 
         Log.d("helper", "duration="+duration);
 
         //随机坐标
-        int max = 100;
-        int min = 90;
+        int min = top-100;
+        int max = top-50;
         Random random = new Random();
         int v = random.nextInt(max)%(max-min+1) + min;
         path.moveTo(v, v);

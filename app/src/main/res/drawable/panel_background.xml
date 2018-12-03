@@ -7,7 +7,7 @@
         android:dashGap="3dp"
         android:dashWidth="6dp"
         android:width="4dp"
-        android:color="#959792" />
+        android:color="#ffffff" />
     <!-- 虚线的高度 -->
     <!--<size android:height="1dp" />-->
     <!-- 矩形的圆角半径 -->
