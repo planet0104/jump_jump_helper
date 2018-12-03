@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JumpJumpHelper.iml" filepath="$PROJECT_DIR$/JumpJumpHelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jump_jump_helper.iml" filepath="$PROJECT_DIR$/jump_jump_helper.iml" />
     </modules>
   </component>
 </project>
