@@ -25,12 +25,12 @@ android {
     }
     productFlavors {
     }
-    buildToolsVersion '26.0.3'
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile name: 'YoumiSdk_v8.3.0_2018-10-11', ext: 'aar'
+    implementation name: 'YoumiSdk_v8.3.0_2018-10-11', ext: 'aar'
     implementation 'com.android.support:support-v4:26.1.0'
 }
 
