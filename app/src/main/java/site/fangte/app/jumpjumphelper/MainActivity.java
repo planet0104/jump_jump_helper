@@ -56,6 +56,10 @@ public class MainActivity extends Activity {
     //检测回调是否成功
     public static boolean onGestureCompleted = false;
 
+    //h为高, w为距离
+    double h = 0;
+    double w = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,7 +179,7 @@ public class MainActivity extends Activity {
             });
 
             final int panelWidth = getResources().getDisplayMetrics().widthPixels;
-            final int panelHeight = (int) (getResources().getDisplayMetrics().heightPixels/1.5);
+            final int panelHeight = (int) (getResources().getDisplayMetrics().heightPixels*0.8);
 
             ll_panel_root.getLayoutParams().width = panelWidth;
             ll_panel_root.getLayoutParams().height = panelHeight;
@@ -212,12 +216,32 @@ public class MainActivity extends Activity {
                             float y2 = end.y;
                             //计算距离
                             double distance = Math.abs(Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)));
+                            System.out.println("距离："+distance);
 
                             //距离按照屏幕宽度比例
-                            distance = distance/getResources().getDisplayMetrics().widthPixels;
+//                            distance = distance/getResources().getDisplayMetrics().widthPixels;
+
+                            if(h==0){
+                                h = distance;
+//                                Toast.makeText(MainActivity.this, "bobSize="+bobSize, Toast.LENGTH_SHORT).show();
+                                //清空
+                                Log.d(TAG, "h=="+h);
+                                startPoint = null;
+                                return true;
+                            }
+                            if(w==0){
+                                w = distance;
+                                Log.d(TAG, "w=="+w);
+//                                startPoint = null;
+//                                return true;
+                            }
 
                             //根据距离模拟按下事件
-                            double second = distance*1.47; //距离*2=按下秒数
+//                            double second = distance*(2.2*(1.0-bobSize)); //距离*2=按下秒数
+                            double t = w/(0.78/(466/h));
+                            System.out.println("时间："+t);
+
+                            //距离406 时间 700ms
 
                             //起跳
                             Log.d(TAG, "开始跳:");
@@ -228,7 +252,7 @@ public class MainActivity extends Activity {
                             ll_panel_root.getLocationOnScreen(loc);
                             System.out.println("屏幕位置:"+ Arrays.toString(loc));
 
-                            helperService.performTouch((int) (second*1000), loc[1]);
+                            helperService.performTouch((int) (t), loc[1]);
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -237,8 +261,10 @@ public class MainActivity extends Activity {
                                         ll_error.setVisibility(View.VISIBLE);
                                     }
                                 }
-                            }, (long) (second*1000+500));
+                            }, (long) (t+500));
                             startPoint = null;
+                            w = 0;
+                            h = 0;
                         }
                     }
                     if(event.getAction() == MotionEvent.ACTION_MOVE){
